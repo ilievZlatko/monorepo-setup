@@ -1,0 +1,103 @@
+/*========================================
+  #Variables
+======================================== */
+/**
+* TABLE OF CONTENTS
+*
+* COLORS
+* Brand colors............These are the main brand colors. They will be use the most
+* Neutral colors..........White and black, gray scale, secondary colors.
+* Utility colors..........Other colors to represent states: info, warning, success, etc.
+*
+* TYPOGRAPHY
+* Font families...........The fonts used in the design system.
+* Font weights............Font weights
+* Sizes...................Font sizing for body text, paragraphs, inputs
+*
+* BREAKPOINTS
+* Breakpoints.............Global responsive breakpoints definitions.
+*/
+/*=============================================
+=            Colors                           =
+=============================================*/
+/* Brand colors */
+/* Neutral Colors */
+/* Utility Colors */
+/*=============================================
+=            Typography                       =
+=============================================*/
+/**
+*
+* 1) The playfair font. We'll use this for headings mostly.
+*    https://fonts.google.com/specimen/Playfair+Display
+*
+*
+* 2) The raleway font. We'll use this for the body text.
+*    https://fonts.google.com/specimen/Raleway
+*/
+/* Font families */
+/* 1 */
+/* 2 */
+/* Font sizes */
+/* Heading font sizes */
+/* Font weights */
+/*=============================================
+=            Breakpoints                      =
+=============================================*/
+/*=====  End of Breakpoints  ======*/
+/*=============================================
+=            Spacing                          =
+=============================================*/
+/*=============================================
+=            Global text colors               =
+=============================================*/
+/*=============================================
+=            Buttons                          =
+=============================================*/
+/*=============================================
+=            Forms                            =
+=============================================*/
+/*=============================================
+=            Body font sizes                  =
+=============================================*/
+/*=============================================
+=            Heading font sizes               =
+=============================================*/
+/*=============================================
+=            Heading font weights             =
+=============================================*/
+/*=============================================
+=            Mixins                           =
+=============================================*/
+.body {
+  font-size: 12px;
+}
+
+@media (min-width: 48rem) {
+  .body {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 64rem) {
+  .body {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 80rem) {
+  .body {
+    font-size: 18px;
+  }
+}
+
+.dse-button-container {
+  display: flex;
+  background: var(--dse-btn-primary-bg, #5ece7b);
+  color: var(--dse-btn-primary-color, #fff);
+  border: none;
+  padding: 0.25rem;
+}
+
+
+/*# sourceMappingURL=/src.f69400ca.css.map */
