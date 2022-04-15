@@ -1,6 +1,7 @@
 /*=============================================
 =            Body font sizes                  =
 =============================================*/
+$body-font-family: var(--dse-body-font-family, $raleway) !default;
 $body-font-size: var(--dse-body-font-size, $fs-sm) !default;
 $body-font-weight: var(--dse-body-font-weight, $fw-normal) !default;
 

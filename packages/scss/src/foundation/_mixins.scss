@@ -19,6 +19,46 @@
   }
 }
 
+@mixin padding($space) {
+  padding: map-get($spacing, $space);
+}
+
+@mixin p-l($space) {
+  padding-left: map-get($spacing, $space);
+}
+
+@mixin p-r($space) {
+  padding-right: map-get($spacing, $space);
+}
+
+@mixin p-t($space) {
+  padding-top: map-get($spacing, $space);
+}
+
+@mixin p-b($space) {
+  padding-bottom: map-get($spacing, $space);
+}
+
+@mixin margin($space) {
+  margin: map-get($spacing, $space);
+}
+
+@mixin m-l($space) {
+  margin-left: map-get($spacing, $space);
+}
+
+@mixin m-r($space) {
+  margin-right: map-get($spacing, $space);
+}
+
+@mixin m-t($space) {
+  margin-top: map-get($spacing, $space);
+}
+
+@mixin m-b($space) {
+  margin-bottom: map-get($spacing, $space);
+}
+
 .body {
   font-size: 12px;
 

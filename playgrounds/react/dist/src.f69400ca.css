@@ -1,6 +1,7 @@
 /*========================================
   #Variables
 ======================================== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /**
 * TABLE OF CONTENTS
 *
@@ -177,6 +178,7 @@
 /*========================================
   #Variables
 ======================================== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /**
 * TABLE OF CONTENTS
 *
@@ -297,6 +299,7 @@
 /*========================================
   #Variables
 ======================================== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /**
 * TABLE OF CONTENTS
 *
@@ -590,12 +593,132 @@
   margin-bottom: 6rem;
 }
 
+/*========================================
+  #Variables
+======================================== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/**
+* TABLE OF CONTENTS
+*
+* COLORS
+* Brand colors............These are the main brand colors. They will be use the most
+* Neutral colors..........White and black, gray scale, secondary colors.
+* Utility colors..........Other colors to represent states: info, warning, success, etc.
+*
+* TYPOGRAPHY
+* Font families...........The fonts used in the design system.
+* Font weights............Font weights
+* Sizes...................Font sizing for body text, paragraphs, inputs
+*
+* BREAKPOINTS
+* Breakpoints.............Global responsive breakpoints definitions.
+*/
+/*=============================================
+=            Colors                           =
+=============================================*/
+/* Brand colors */
+/* Neutral Colors */
+/* Utility Colors */
+/*=============================================
+=            Typography                       =
+=============================================*/
+/**
+*
+* 1) The playfair font. We'll use this for headings mostly.
+*    https://fonts.google.com/specimen/Playfair+Display
+*
+*
+* 2) The raleway font. We'll use this for the body text.
+*    https://fonts.google.com/specimen/Raleway
+*/
+/* Font families */
+/* 1 */
+/* 2 */
+/* Font sizes */
+/* Heading font sizes */
+/* Font weights */
+/*=============================================
+=            Breakpoints                      =
+=============================================*/
+/*=====  End of Breakpoints  ======*/
+/*=============================================
+=            Spacing                          =
+=============================================*/
+/*=============================================
+=            Font Size                        =
+=============================================*/
+/*=============================================
+=            Global text colors               =
+=============================================*/
+/*=============================================
+=            Buttons                          =
+=============================================*/
+/*=============================================
+=            Forms                            =
+=============================================*/
+/*=============================================
+=            Body font sizes                  =
+=============================================*/
+/*=============================================
+=            Heading font sizes               =
+=============================================*/
+/*=============================================
+=            Heading font weights             =
+=============================================*/
+/*=============================================
+=            Mixins                           =
+=============================================*/
+.body {
+  font-size: 12px;
+}
+
+@media (min-width: 48rem) {
+  .body {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 64rem) {
+  .body {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 80rem) {
+  .body {
+    font-size: 18px;
+  }
+}
+
+.dse-select {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dse-select__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid var(--dse-form-border-color, #f1f2f3);
+  background: var(--dse-form-bg-color, #fff);
+  font-family: var(--dse-body-font-family, "Raleway", "HelveticaNeue", "Helvetica", "Arial", sans-serif);
+  cursor: pointer;
+}
+
+.dse-select__overlay {
+  padding: 0rem;
+  margin: 0rem;
+}
+
 /*=============================================
 =            Foundations                      =
 =============================================*/
 /*========================================
   #Variables
 ======================================== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /**
 * TABLE OF CONTENTS
 *
@@ -1161,6 +1284,7 @@ template {
   --dse-form-border-focus-color: #5ece7b;
   --dse-body-font-size: 1rem;
   --dse-body-font-weight: 400;
+  --dse-body-font-family: Playfair, serif;
   --dse-h1-font-size: 1.375rem;
   --dse-h2-font-size: 1.375rem;
   --dse-h3-font-size: 1rem;
