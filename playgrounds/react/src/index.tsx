@@ -13,10 +13,6 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 const options = [
   {
-    label: "Select...",
-    value: null,
-  },
-  {
     label: "Strict Black",
     value: "strict-black",
   },
@@ -33,7 +29,12 @@ const options = [
 root.render(
   <React.StrictMode>
     <div style={{ padding: "40px" }}>
-      <Select options={options} />
+      <Select
+        options={options}
+        renderOption={({ option, getOptionRecommendedProps }) => (
+          <p {...getOptionRecommendedProps()}>{option.label}</p>
+        )}
+      />
     </div>
   </React.StrictMode>
 );

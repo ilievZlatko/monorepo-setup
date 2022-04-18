@@ -33016,14 +33016,25 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+var KEY_CODES;
+
+(function (KEY_CODES) {
+  KEY_CODES[KEY_CODES["ENTER"] = 13] = "ENTER";
+  KEY_CODES[KEY_CODES["SPACE"] = 32] = "SPACE";
+  KEY_CODES[KEY_CODES["DOWN_ARROW"] = 40] = "DOWN_ARROW";
+})(KEY_CODES || (KEY_CODES = {}));
+
 const Select = ({
   onOptionSelected: handler,
   options = [],
-  label = "Please select an option..."
+  label = "Please select an option...",
+  renderOption
 }) => {
   const [isOpen, setIsOpen] = (0, _react.useState)(false);
   const [overlayTop, setOverlayTop] = (0, _react.useState)(0);
   const [selectedIndex, setSelectedIndex] = (0, _react.useState)(null);
+  const [highlightedIndex, setHighlightedIndex] = (0, _react.useState)(null);
+  const [optionRefs, setOptionRefs] = (0, _react.useState)([]);
   const labelRef = (0, _react.useRef)(null);
 
   const onOptionSelected = (option, optionIndex) => {
@@ -33036,9 +33047,34 @@ const Select = ({
     setIsOpen(!isOpen);
   };
 
+  const highlightItem = optionIndex => {
+    setHighlightedIndex(optionIndex);
+  };
+
+  const onButtonKeyDown = event => {
+    event.preventDefault();
+
+    if (event.keyCode in KEY_CODES) {
+      setIsOpen(true);
+      highlightItem(0);
+    }
+  };
+
   (0, _react.useEffect)(() => {
     setOverlayTop((labelRef.current?.offsetHeight || 0) + 10);
   }, [labelRef.current?.offsetHeight]);
+  (0, _react.useEffect)(() => {
+    setOptionRefs(options.map(() => (0, _react.createRef)()));
+  }, [options.length]);
+  (0, _react.useEffect)(() => {
+    if (highlightedIndex !== null && isOpen) {
+      const ref = optionRefs[highlightedIndex];
+
+      if (ref && ref.current) {
+        ref.current.focus();
+      }
+    }
+  }, [isOpen]);
   let selectedOption = null;
 
   if (selectedIndex !== null) {
@@ -33049,8 +33085,12 @@ const Select = ({
     className: "dse-select"
   }, _react.default.createElement("button", {
     ref: labelRef,
+    "aria-haspopup": "true",
+    "aria-expanded": isOpen ? true : undefined,
+    "aria-controls": "dse-select-list",
     className: "dse-select__label",
-    onClick: onLabelClick
+    onClick: onLabelClick,
+    onKeyDown: onButtonKeyDown
   }, _react.default.createElement(_Text.default, null, selectedIndex === null ? label : selectedOption?.label), _react.default.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: `dse-select__caret ${isOpen ? "dse-select__caret--open" : "dse-select__caret--closed"}`,
@@ -33065,16 +33105,36 @@ const Select = ({
     strokeLinejoin: "round",
     d: "M19 9l-7 7-7-7"
   }))), isOpen ? _react.default.createElement("ul", {
+    role: "menu",
+    id: "dse-select-list",
     style: {
       top: overlayTop
     },
     className: "dse-select__overlay"
   }, options.map((option, optionIndex) => {
     const isSelected = selectedIndex === optionIndex;
-    return _react.default.createElement("li", {
-      key: option.value,
-      className: `dse-select__option ${isSelected ? "dse-select__option--selected" : ""}`,
-      onClick: () => onOptionSelected(option, optionIndex)
+    const isHighlighted = highlightedIndex === optionIndex;
+    const ref = optionRefs[optionIndex];
+    const renderOptionProps = {
+      option,
+      isSelected,
+      getOptionRecommendedProps: (overrideProps = {}) => ({
+        ref,
+        tabIndex: isHighlighted ? -1 : 0,
+        onMouseEnter: () => highlightItem(optionIndex),
+        onMouseLeave: () => highlightItem(null),
+        className: `dse-select__option ${isSelected ? "dse-select__option--selected" : ""} ${isHighlighted ? "dse-select__option--highlighted" : ""}`,
+        key: option.value,
+        onClick: () => onOptionSelected(option, optionIndex),
+        ...overrideProps
+      })
+    };
+
+    if (renderOption) {
+      return renderOption(renderOptionProps);
+    }
+
+    return _react.default.createElement("li", { ...renderOptionProps.getOptionRecommendedProps()
     }, _react.default.createElement(_Text.default, null, option.label), isSelected ? _react.default.createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg",
       width: "1rem",
@@ -33248,12 +33308,15 @@ require("@ds.e/scss/lib/global.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var root = _client.default.createRoot(document.getElementById("root"));
 
 var options = [{
-  label: "Select...",
-  value: null
-}, {
   label: "Strict Black",
   value: "strict-black"
 }, {
@@ -33268,7 +33331,12 @@ root.render(_react.default.createElement(_react.default.StrictMode, null, _react
     padding: "40px"
   }
 }, _react.default.createElement(_lib.Select, {
-  options: options
+  options: options,
+  renderOption: function renderOption(_ref) {
+    var option = _ref.option,
+        getOptionRecommendedProps = _ref.getOptionRecommendedProps;
+    return _react.default.createElement("p", _objectSpread({}, getOptionRecommendedProps()), option.label);
+  }
 }))));
 },{"react":"../../../node_modules/react/index.js","react-dom/client":"../../../node_modules/react-dom/client.js","@ds.e/react/lib":"../../../node_modules/@ds.e/react/lib/index.js","@ds.e/scss/lib/Utilities.css":"../../../node_modules/@ds.e/scss/lib/Utilities.css","@ds.e/scss/lib/Text.css":"../../../node_modules/@ds.e/scss/lib/Text.css","@ds.e/scss/lib/Margin.css":"../../../node_modules/@ds.e/scss/lib/Margin.css","@ds.e/scss/lib/Select.css":"../../../node_modules/@ds.e/scss/lib/Select.css","@ds.e/scss/lib/global.css":"../../../node_modules/@ds.e/scss/lib/global.css"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -33298,7 +33366,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54868" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64081" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
