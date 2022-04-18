@@ -22,14 +22,38 @@ interface SelectProps {
   onOptionSelected?: (option: SelectOption, optionIndex: number) => void;
   options?: SelectOption[];
   label?: string;
-  renderOption: (props: RenderOptionProps) => React.ReactNode;
+  renderOption?: (props: RenderOptionProps) => React.ReactNode;
 }
 
 enum KEY_CODES {
   ENTER = 13,
   SPACE = 32,
   DOWN_ARROW = 40,
+  ESC = 27,
+  UP_ARROW = 38,
 }
+
+const getNextOptionIndex = (
+  currentIndex: number | null,
+  options: SelectOption[]
+): number => {
+  if (currentIndex === null) return 0;
+
+  if (currentIndex === options.length - 1) return 0;
+
+  return currentIndex + 1;
+};
+
+const getPrevOptionIndex = (
+  currentIndex: number | null,
+  options: SelectOption[]
+): number => {
+  if (currentIndex === null) return 0;
+
+  if (currentIndex === 0) return options.length - 1;
+
+  return currentIndex - 1;
+};
 
 const Select: React.FC<SelectProps> = ({
   onOptionSelected: handler,
@@ -57,16 +81,39 @@ const Select: React.FC<SelectProps> = ({
     setIsOpen(!isOpen);
   };
 
-  const highlightItem = (optionIndex: number | null) => {
+  const highlightOption = (optionIndex: number | null) => {
     setHighlightedIndex(optionIndex);
   };
 
   const onButtonKeyDown: KeyboardEventHandler = (event) => {
     event.preventDefault();
 
-    if (event.keyCode in KEY_CODES) {
+    if (
+      [KEY_CODES.DOWN_ARROW, KEY_CODES.ENTER, KEY_CODES.SPACE].includes(
+        event.keyCode
+      )
+    ) {
       setIsOpen(true);
-      highlightItem(0);
+      highlightOption(0);
+    }
+  };
+
+  const onOptionKeyDown: KeyboardEventHandler = (event) => {
+    if (event.keyCode === KEY_CODES.ESC) {
+      setIsOpen(false);
+      return;
+    }
+
+    if (event.keyCode === KEY_CODES.DOWN_ARROW) {
+      highlightOption(getNextOptionIndex(highlightedIndex, options));
+    }
+
+    if (event.keyCode === KEY_CODES.UP_ARROW) {
+      highlightOption(getPrevOptionIndex(highlightedIndex, options));
+    }
+
+    if (event.keyCode === KEY_CODES.ENTER) {
+      onOptionSelected(options[highlightedIndex!], highlightedIndex!);
     }
   };
 
@@ -86,7 +133,7 @@ const Select: React.FC<SelectProps> = ({
         ref.current.focus();
       }
     }
-  }, [isOpen]);
+  }, [isOpen, highlightedIndex]);
 
   let selectedOption = null;
 
@@ -97,6 +144,7 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div className="dse-select">
       <button
+        data-testid="DseSelectButton"
         ref={labelRef}
         aria-haspopup="true"
         aria-expanded={isOpen ? true : undefined}
@@ -143,9 +191,13 @@ const Select: React.FC<SelectProps> = ({
               isSelected,
               getOptionRecommendedProps: (overrideProps = {}) => ({
                 ref,
+                role: "menuitemradio",
+                "aria-label": option.label,
+                "aria-checked": isSelected ? true : undefined,
                 tabIndex: isHighlighted ? -1 : 0,
-                onMouseEnter: () => highlightItem(optionIndex),
-                onMouseLeave: () => highlightItem(null),
+                onKeyDown: onOptionKeyDown,
+                onMouseEnter: () => highlightOption(optionIndex),
+                onMouseLeave: () => highlightOption(null),
                 className: `dse-select__option ${
                   isSelected ? "dse-select__option--selected" : ""
                 } ${isHighlighted ? "dse-select__option--highlighted" : ""}`,

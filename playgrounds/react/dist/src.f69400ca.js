@@ -33022,7 +33022,21 @@ var KEY_CODES;
   KEY_CODES[KEY_CODES["ENTER"] = 13] = "ENTER";
   KEY_CODES[KEY_CODES["SPACE"] = 32] = "SPACE";
   KEY_CODES[KEY_CODES["DOWN_ARROW"] = 40] = "DOWN_ARROW";
+  KEY_CODES[KEY_CODES["ESC"] = 27] = "ESC";
+  KEY_CODES[KEY_CODES["UP_ARROW"] = 38] = "UP_ARROW";
 })(KEY_CODES || (KEY_CODES = {}));
+
+const getNextOptionIndex = (currentIndex, options) => {
+  if (currentIndex === null) return 0;
+  if (currentIndex === options.length - 1) return 0;
+  return currentIndex + 1;
+};
+
+const getPrevOptionIndex = (currentIndex, options) => {
+  if (currentIndex === null) return 0;
+  if (currentIndex === 0) return options.length - 1;
+  return currentIndex - 1;
+};
 
 const Select = ({
   onOptionSelected: handler,
@@ -33047,16 +33061,35 @@ const Select = ({
     setIsOpen(!isOpen);
   };
 
-  const highlightItem = optionIndex => {
+  const highlightOption = optionIndex => {
     setHighlightedIndex(optionIndex);
   };
 
   const onButtonKeyDown = event => {
     event.preventDefault();
 
-    if (event.keyCode in KEY_CODES) {
+    if ([KEY_CODES.DOWN_ARROW, KEY_CODES.ENTER, KEY_CODES.SPACE].includes(event.keyCode)) {
       setIsOpen(true);
-      highlightItem(0);
+      highlightOption(0);
+    }
+  };
+
+  const onOptionKeyDown = event => {
+    if (event.keyCode === KEY_CODES.ESC) {
+      setIsOpen(false);
+      return;
+    }
+
+    if (event.keyCode === KEY_CODES.DOWN_ARROW) {
+      highlightOption(getNextOptionIndex(highlightedIndex, options));
+    }
+
+    if (event.keyCode === KEY_CODES.UP_ARROW) {
+      highlightOption(getPrevOptionIndex(highlightedIndex, options));
+    }
+
+    if (event.keyCode === KEY_CODES.ENTER) {
+      onOptionSelected(options[highlightedIndex], highlightedIndex);
     }
   };
 
@@ -33074,7 +33107,7 @@ const Select = ({
         ref.current.focus();
       }
     }
-  }, [isOpen]);
+  }, [isOpen, highlightedIndex]);
   let selectedOption = null;
 
   if (selectedIndex !== null) {
@@ -33121,8 +33154,9 @@ const Select = ({
       getOptionRecommendedProps: (overrideProps = {}) => ({
         ref,
         tabIndex: isHighlighted ? -1 : 0,
-        onMouseEnter: () => highlightItem(optionIndex),
-        onMouseLeave: () => highlightItem(null),
+        onKeyDown: onOptionKeyDown,
+        onMouseEnter: () => highlightOption(optionIndex),
+        onMouseLeave: () => highlightOption(null),
         className: `dse-select__option ${isSelected ? "dse-select__option--selected" : ""} ${isHighlighted ? "dse-select__option--highlighted" : ""}`,
         key: option.value,
         onClick: () => onOptionSelected(option, optionIndex),
@@ -33366,7 +33400,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64081" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52466" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
