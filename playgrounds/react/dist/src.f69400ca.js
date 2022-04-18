@@ -33008,6 +33008,10 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _Text = _interopRequireDefault(require("../../atoms/Text/Text.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -33018,23 +33022,38 @@ const Select = ({
   label = "Please select an option..."
 }) => {
   const [isOpen, setIsOpen] = (0, _react.useState)(false);
+  const [overlayTop, setOverlayTop] = (0, _react.useState)(0);
+  const [selectedIndex, setSelectedIndex] = (0, _react.useState)(null);
+  const labelRef = (0, _react.useRef)(null);
 
   const onOptionSelected = (option, optionIndex) => {
-    setIsOpen(!isOpen);
     if (handler) handler(option, optionIndex);
+    setSelectedIndex(optionIndex);
+    setIsOpen(false);
   };
 
   const onLabelClick = () => {
     setIsOpen(!isOpen);
   };
 
+  (0, _react.useEffect)(() => {
+    setOverlayTop((labelRef.current?.offsetHeight || 0) + 10);
+  }, [labelRef.current?.offsetHeight]);
+  let selectedOption = null;
+
+  if (selectedIndex !== null) {
+    selectedOption = options[selectedIndex];
+  }
+
   return _react.default.createElement("div", {
     className: "dse-select"
   }, _react.default.createElement("button", {
+    ref: labelRef,
     className: "dse-select__label",
     onClick: onLabelClick
-  }, _react.default.createElement("span", null, label), _react.default.createElement("svg", {
+  }, _react.default.createElement(_Text.default, null, selectedIndex === null ? label : selectedOption?.label), _react.default.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
+    className: `dse-select__caret ${isOpen ? "dse-select__caret--open" : "dse-select__caret--closed"}`,
     width: "1rem",
     height: "1rem",
     fill: "none",
@@ -33046,15 +33065,32 @@ const Select = ({
     strokeLinejoin: "round",
     d: "M19 9l-7 7-7-7"
   }))), isOpen ? _react.default.createElement("ul", {
+    style: {
+      top: overlayTop
+    },
     className: "dse-select__overlay"
-  }, options.map((option, optionIndex) => _react.default.createElement("li", {
-    key: option.value,
-    onClick: () => onOptionSelected(option, optionIndex)
-  }, option.label))) : null);
+  }, options.map((option, optionIndex) => {
+    const isSelected = selectedIndex === optionIndex;
+    return _react.default.createElement("li", {
+      key: option.value,
+      className: `dse-select__option ${isSelected ? "dse-select__option--selected" : ""}`,
+      onClick: () => onOptionSelected(option, optionIndex)
+    }, _react.default.createElement(_Text.default, null, option.label), isSelected ? _react.default.createElement("svg", {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "1rem",
+      height: "1rem",
+      viewBox: "0 0 20 20",
+      fill: "currentColor"
+    }, _react.default.createElement("path", {
+      fillRule: "evenodd",
+      d: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",
+      clipRule: "evenodd"
+    })) : null);
+  })) : null);
 };
 
 exports.default = Select;
-},{"react":"../../../node_modules/react/index.js"}],"../../../node_modules/@ds.e/react/lib/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","../../atoms/Text/Text.js":"../../../node_modules/@ds.e/react/lib/atoms/Text/Text.js"}],"../../../node_modules/@ds.e/react/lib/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33215,6 +33251,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var root = _client.default.createRoot(document.getElementById("root"));
 
 var options = [{
+  label: "Select...",
+  value: null
+}, {
   label: "Strict Black",
   value: "strict-black"
 }, {
@@ -33224,9 +33263,11 @@ var options = [{
   label: "Sweet Pink",
   value: "sweet-pink"
 }];
-root.render(_react.default.createElement(_react.default.StrictMode, null, _react.default.createElement("div", null, _react.default.createElement(_lib.Margin, null, _react.default.createElement(_lib.Text, {
-  size: "base"
-}, "This is some text")), _react.default.createElement(_lib.Select, {
+root.render(_react.default.createElement(_react.default.StrictMode, null, _react.default.createElement("div", {
+  style: {
+    padding: "40px"
+  }
+}, _react.default.createElement(_lib.Select, {
   options: options
 }))));
 },{"react":"../../../node_modules/react/index.js","react-dom/client":"../../../node_modules/react-dom/client.js","@ds.e/react/lib":"../../../node_modules/@ds.e/react/lib/index.js","@ds.e/scss/lib/Utilities.css":"../../../node_modules/@ds.e/scss/lib/Utilities.css","@ds.e/scss/lib/Text.css":"../../../node_modules/@ds.e/scss/lib/Text.css","@ds.e/scss/lib/Margin.css":"../../../node_modules/@ds.e/scss/lib/Margin.css","@ds.e/scss/lib/Select.css":"../../../node_modules/@ds.e/scss/lib/Select.css","@ds.e/scss/lib/global.css":"../../../node_modules/@ds.e/scss/lib/global.css"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -33257,7 +33298,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59437" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54868" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

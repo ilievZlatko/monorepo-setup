@@ -139,5 +139,9 @@ $fs: (
   // 16px
   lg: 1.125rem,
   // 18px
-  xl: 1.5rem // 24px,,,,,,
+  xl: 1.5rem // 24px,,,,,,,,
 ) !default;
+
+$shadows: (
+  base: 0px 4px 11px rgba(157, 157, 157, 0.21),
+);

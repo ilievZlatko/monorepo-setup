@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { Text, Margin, Select } from "@ds.e/react/lib";
+import { Select } from "@ds.e/react/lib";
 
 import "@ds.e/scss/lib/Utilities.css";
 import "@ds.e/scss/lib/Text.css";
@@ -12,6 +12,10 @@ import "@ds.e/scss/lib/global.css";
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 const options = [
+  {
+    label: "Select...",
+    value: null,
+  },
   {
     label: "Strict Black",
     value: "strict-black",
@@ -28,11 +32,7 @@ const options = [
 
 root.render(
   <React.StrictMode>
-    <div>
-      <Margin>
-        <Text size="base">This is some text</Text>
-      </Margin>
-
+    <div style={{ padding: "40px" }}>
       <Select options={options} />
     </div>
   </React.StrictMode>
