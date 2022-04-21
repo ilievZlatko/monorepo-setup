@@ -38,6 +38,11 @@
     z-index: 99;
     position: absolute;
     width: 100%;
+    display: none;
+
+    &--open {
+      display: block;
+    }
   }
 
   &__option {
