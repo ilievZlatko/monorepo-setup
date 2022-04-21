@@ -3,7 +3,7 @@ import Select from "./Select";
 import { withA11y } from "@storybook/addon-a11y";
 
 // CSS
-import "@dse.z/scss/lib/Select.css";
+import "@ds.zlatko/scss/lib/Select.css";
 
 export default {
   title: "Molecules/Select",

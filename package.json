@@ -1,6 +1,6 @@
 {
-  "name": "@dse.z/core",
-  "version": "0.2.0",
+  "name": "@ds.zlatko/core",
+  "version": "0.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {

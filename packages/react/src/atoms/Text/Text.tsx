@@ -1,5 +1,5 @@
 import React from "react";
-import { FontSize } from "@dse.z/foundation";
+import { FontSize } from "@ds.zlatko/foundation";
 
 interface TextProps
   extends React.DetailedHTMLProps<

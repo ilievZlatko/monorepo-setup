@@ -1,5 +1,5 @@
 import React from "react";
-import { Spacing } from "@dse.z/foundation";
+import { Spacing } from "@ds.zlatko/foundation";
 
 interface MarginProps
   extends React.DetailedHTMLProps<

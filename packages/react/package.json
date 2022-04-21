@@ -1,5 +1,5 @@
 {
-  "name": "@dse.z/react",
+  "name": "@ds.zlatko/react",
   "version": "0.2.1",
   "main": "index.js",
   "license": "MIT",
@@ -46,5 +46,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "333ca7623cb37b66e9814ba6c4c8bde2e2d4e740"
+  "gitHead": "0bcde58496d8214b2ed7314a522487660934f71c"
 }

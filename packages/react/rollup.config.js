@@ -14,5 +14,5 @@ export default {
   },
   plugins: [Ts()],
   preserveModules: true,
-  external: ["react", "@dse.z/foundation"],
+  external: ["react", "@ds.zlatko/foundation"],
 };

@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { Select } from "@dse.z/react/lib";
+import { Select } from "@ds.zlatko/react/lib";
 
-import "@dse.z/scss/lib/Utilities.css";
-import "@dse.z/scss/lib/Text.css";
-import "@dse.z/scss/lib/Margin.css";
-import "@dse.z/scss/lib/Select.css";
-import "@dse.z/scss/lib/global.css";
+import "@ds.zlatko/scss/lib/Utilities.css";
+import "@ds.zlatko/scss/lib/Text.css";
+import "@ds.zlatko/scss/lib/Margin.css";
+import "@ds.zlatko/scss/lib/Select.css";
+import "@ds.zlatko/scss/lib/global.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
