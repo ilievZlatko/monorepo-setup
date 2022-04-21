@@ -1,12 +1,13 @@
 {
   "name": "@dse.z/core",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "yarn lerna run build",
     "dev": "yarn lerna run dev",
-    "test": "yarn lerna run test"
+    "test": "yarn lerna run test",
+    "publish": "yarn test && yarn build && yarn lerna publish"
   },
   "keywords": [],
   "author": "",
