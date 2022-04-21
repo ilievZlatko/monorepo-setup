@@ -40,5 +40,8 @@
     "storybook": "start-storybook -p 6006",
     "chromatic": "chromatic --project-token=bcc8fa835e7b"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
