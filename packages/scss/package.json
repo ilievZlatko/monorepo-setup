@@ -10,7 +10,6 @@
   "scripts": {
     "lint": "stylelint './**/*.scss' --custom-syntax postcss-scss",
     "lint:fix": "npm run lint --fix",
-    "prepare": "husky install",
     "build": "node src/scripts/build.js",
     "dev": "nodemon --watch src --exec yarn build"
   },
@@ -43,5 +42,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "0bcde58496d8214b2ed7314a522487660934f71c"
+  "gitHead": "bb489f0f08dc055dea300ebb8be9231127158cd4"
 }
