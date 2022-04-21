@@ -1,5 +1,5 @@
 {
-  "name": "@ds.e/foundation",
+  "name": "@dse.z/foundation",
   "version": "0.1.0",
   "main": "lib/index.js",
   "license": "MIT",
@@ -17,5 +17,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "eda28479b4ce390531902ef91b343578d85c7cad"
 }
