@@ -2,7 +2,8 @@
   "name": "@ds.zlatko/foundation",
   "version": "0.3.0",
   "main": "lib/index.js",
-  "license": "MIT",
+  "author": "Zlatko Iliev",
+  "license": "ISC",
   "files": [
     "lib"
   ],
@@ -21,5 +22,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "bb489f0f08dc055dea300ebb8be9231127158cd4"
+  "gitHead": "05ade2838b388f0e44873c005e4b8e4bd53fb2a3"
 }

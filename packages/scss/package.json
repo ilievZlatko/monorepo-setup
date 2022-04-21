@@ -3,6 +3,8 @@
   "version": "0.3.0",
   "description": "",
   "main": "index.js",
+  "license": "ISC",
+  "author": "Zlatko Iliev",
   "files": [
     "lib",
     "src"
@@ -22,8 +24,6 @@
     "*.scss": "npm run lint:fix"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "normalize-scss": "^7.0.1"
   },
@@ -42,5 +42,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "bb489f0f08dc055dea300ebb8be9231127158cd4"
+  "gitHead": "05ade2838b388f0e44873c005e4b8e4bd53fb2a3"
 }
